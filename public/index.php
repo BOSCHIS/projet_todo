@@ -7,10 +7,16 @@ $url = parse_url($_SERVER['REQUEST_URI']);
 //test soit l'url a une route sinon on renvoi à la racine
 $path = isset($url['path']) ? $url['path'] : '/';
 
+//Importer les controllers
+use App\Controller\HomeController;
+
+//instancier les controllers
+$homeController = new HomeController();
+
 //Routeur (test)
 switch ($path) {
     case '/':
-        echo "Bienvenue";
+        $homeController->index();
         break;
     case '/register':
         echo "Inscription";
