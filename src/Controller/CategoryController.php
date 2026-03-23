@@ -13,6 +13,7 @@ class CategoryController extends AbstractController
     {
         $this->categoryService = new CategoryService();
     }
+
     public function showAllCategory(): mixed
     {
         //Récupérer toutes les categories
@@ -23,7 +24,7 @@ class CategoryController extends AbstractController
 
     public function createCategory(): mixed 
     {
-        $data= [];
+        $data = [];
         //test si le formulaire est soumis
         if (isset($_POST["submit"])) {
             //ajout de la categorie
