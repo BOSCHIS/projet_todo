@@ -60,4 +60,16 @@ class SecurityService
 
         return "Le compte : " . $user->getEmail() . " a été ajouté en BDD";
     }
+
+    public function logout(): void 
+    {
+        //détruire la session
+        session_destroy();
+        //Supprime le cookie
+        unset($_COOKIE["PHPSESSID"]);
+        //Redirection vers accueil
+        header('Location: /');
+        //echo "déconnecté";
+        //header("Refresh:2; url=/");
+    }
 }

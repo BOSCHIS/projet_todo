@@ -1,6 +1,9 @@
 <?php
 
 include '../vendor/autoload.php';
+//démarrage de la session
+session_start();
+
 //Charger les variables d'environnement
 $dotenv = Dotenv\Dotenv::createImmutable("../");
 $dotenv->load();
