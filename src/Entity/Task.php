@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Category;
 use App\Entity\Account;
+use DateTime;
 
 class Task
 {
@@ -29,6 +30,8 @@ class Task
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
         $this->status = true;
+        $this->finishOn = new DateTime("0000-00-00");
+        $this->repeat = "";
         $this->author = $author;
         $this->categories = [];
     }

@@ -122,5 +122,33 @@ class TaskRepository
         } catch(\PDOException $e) {}
         return $task;
     }
+
+    public function hydrateTask(array $task): Task 
+    {
+        //1 Créer un Account
+        $author = new Account();
+        $author->setId($_SESSION["id"]);
+        //2 Créer un objet task
+        $addTask = new Task($task["title"], $task["description"], new \DateTime(),$author );
+        //3 Ajouter les categories
+        foreach ($task["categories"] as $value) {
+            //4 Créer une category
+            $category = new Category();
+            $category->setId($value);
+            //5 Ajouter la categorie à la tache
+            $addTask->addCategory($category);
+        }
+        //6 Set si la valeur est non vide
+        if(!empty($task["finish_on"])) {
+            $addTask->setFinishOn(new \DateTime($task["finish_on"]));
+        }
+        //7 Set si la valeur est non vide
+        if(!empty($task["repeat"])) {
+            $addTask->setRepeat($task["repeat"]);
+        }
+
+        return $addTask;
+    }
 }
+
 
