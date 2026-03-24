@@ -35,11 +35,43 @@ class TaskService
         Tools::sanitize_array($task);
 
         //3 Hydrater le tableau (Super globale POST)
-        $addTask = $this->taskRepository->hydrateTask($task);
+        $addTask = $this->postToTask($task);
         
         //4 Ajout en BDD
         $this->taskRepository->addTask($addTask);
 
         return "La tache : " . $addTask->getTitle() . " a été ajouté en BDD";
+    }
+
+    /**
+     * Méthode pour convertir la super globale POST (formulaire) en Entity Task
+     * @param array $task Super Globale POST
+     * @return Task Entity Task
+     */
+    private function postToTask(array $task): Task 
+    {
+        //1 Créer un Account
+        $author = new Account();
+        $author->setId($_SESSION["id"]);
+        //2 Créer un objet task
+        $addTask = new Task($task["title"], $task["description"], new \DateTime(),$author );
+        //3 Ajouter les categories
+        foreach ($task["categories"] as $value) {
+            //4 Créer une category
+            $category = new Category();
+            $category->setId($value);
+            //5 Ajouter la categorie à la tache
+            $addTask->addCategory($category);
+        }
+        //6 Set si la valeur est non vide
+        if(!empty($task["finish_on"])) {
+            $addTask->setFinishOn(new \DateTime($task["finish_on"]));
+        }
+        //7 Set si la valeur est non vide
+        if(!empty($task["repeat"])) {
+            $addTask->setRepeat($task["repeat"]);
+        }
+
+        return $addTask;
     }
 }

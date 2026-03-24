@@ -30,7 +30,7 @@ class Task
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
         $this->status = true;
-        $this->finishOn = null;
+        $this->finishOn = $createdAt;
         $this->repeat = "";
         $this->author = $author;
         $this->categories = [];
@@ -41,9 +41,10 @@ class Task
         return $this->id;
     }
 
-    public function setId(?int $id): void
+    public function setId(?int $id): self
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getTitle(): string
@@ -51,9 +52,10 @@ class Task
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(string $title): self
     {
         $this->title = $title;
+        return $this;
     }
 
     public function getDescription(): string
@@ -61,9 +63,10 @@ class Task
         return $this->description;
     }
 
-    public function setDescription(string $description): void
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+        return $this;
     }
 
     public function getCreatedAt(): \DateTime
@@ -71,9 +74,10 @@ class Task
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
+        return $this;
     }
 
     public function getUpdatedAt(): \DateTime
@@ -81,9 +85,10 @@ class Task
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTime $updatedAt): void
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+        return $this;
     }
 
     public function getFinishOn(): ?\DateTime
@@ -91,9 +96,10 @@ class Task
         return $this->finishOn;
     }
 
-    public function setFinishOn(?\DateTime $finishOn): void
+    public function setFinishOn(?\DateTime $finishOn): self
     {
         $this->finishOn = $finishOn;
+        return $this;
     }
 
     public function getRepeat(): ?string
@@ -101,9 +107,10 @@ class Task
         return $this->repeat;
     }
 
-    public function setRepeat(?string $repeat): void
+    public function setRepeat(?string $repeat): self
     {
         $this->repeat = $repeat;
+        return $this;
     }
 
     public function getStatus(): bool
@@ -111,9 +118,10 @@ class Task
         return $this->status;
     }
 
-    public function setStatus(bool $status): void
+    public function setStatus(bool $status): self
     {
         $this->status = $status;
+        return $this;
     }
 
     public function getAuthor(): Account
@@ -121,9 +129,10 @@ class Task
         return $this->author;
     }
 
-    public function setAuthor(Account $author): void
+    public function setAuthor(Account $author): self
     {
         $this->author = $author;
+        return $this;
     }
 
     public function getCategories(): array
@@ -131,15 +140,17 @@ class Task
         return $this->categories;
     }
 
-    public function addCategory(Category $category): void
+    public function addCategory(Category $category): self
     {
         $this->categories[] = $category;
+        return $this;
     }
 
-    public function removeCategory(Category $category): void
+    public function removeCategory(Category $category): self
     {
         unset($this->categories[array_search($category, $this->categories)]);
         sort($this->categories);
+        return $this;
     }
 
     public function __toString(): string
