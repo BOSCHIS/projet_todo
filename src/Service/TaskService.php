@@ -34,8 +34,8 @@ class TaskService
         //2 Nettoyer les entrées utilisateurs
         Tools::sanitize_array($task);
 
-        //3 Hydrater le tableau (Super globale POST)
-        $addTask = $this->postToTask($task);
+        //3 Mapper le tableau (Super globale POST)
+        $addTask = $this->mapFromPost($task);
         
         //4 Ajout en BDD
         $this->taskRepository->addTask($addTask);
@@ -48,7 +48,7 @@ class TaskService
      * @param array $task Super Globale POST
      * @return Task Entity Task
      */
-    private function postToTask(array $task): Task 
+    private function mapFromPost(array $task): Task 
     {
         //1 Créer un Account
         $author = new Account();
