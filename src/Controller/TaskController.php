@@ -19,6 +19,9 @@ class TaskController extends AbstractController
 
     public function createTask(): mixed 
     {
+        //test si non connecté redirection vers accueil
+        if (!isset($_SESSION["connected"])) header('Location:/');
+
         //Récupération des categories
         $data["categories"] = $this->categoryService->getAllCategories();
 
@@ -29,5 +32,16 @@ class TaskController extends AbstractController
         }
 
         return $this->render("add_task","Ajouter tache", $data);
+    }
+    
+    public function showAllTaskByAccount(): mixed 
+    {
+        //test si non connecté redirection vers accueil
+        if (!isset($_SESSION["connected"])) header('Location:/');
+        
+        //Récupération de la liste des taches
+        $tasks["tasks"] = $this->taskService->getAllTaskByAccount($_SESSION["id"]);
+
+        return $this->render("show_all_task_by_account","liste des taches", $tasks);
     }
 }

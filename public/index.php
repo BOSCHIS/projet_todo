@@ -48,6 +48,9 @@ switch ($path) {
     case '/task/new':
         $taskController->createTask();
         break;
+    case '/task/all':
+        $taskController->showAllTaskByAccount();
+        break;
     default:
         echo "404 la page n'existe pas";
         break;

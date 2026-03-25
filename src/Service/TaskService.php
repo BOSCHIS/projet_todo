@@ -22,6 +22,11 @@ class TaskService
         $this->categoryRepository = new CategoryRepository();
     }
 
+    /**
+     * Méthode pour ajouter une Task en BDD depuis la super globale $_POST
+     * @param array $task super globale $_POST
+     * @return string $msg message de sortie
+     */
     public function insertTask(array $task): string 
     {
         //1 Vérifier si les champs sont vides
@@ -41,6 +46,16 @@ class TaskService
         $this->taskRepository->addTask($addTask);
 
         return "La tache : " . $addTask->getTitle() . " a été ajouté en BDD";
+    }
+
+    /**
+     * Méthode pour récupérer toutes les taches d'un account
+     * @param int $id ID de l'Account connecté
+     * @return array<Task> Tableau d'Entity Task
+     */
+    public function getAllTaskByAccount(int $id): array 
+    {
+        return $this->taskRepository->findAllTaskByAccount($id);
     }
 
     /**
