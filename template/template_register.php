@@ -8,12 +8,13 @@
 <body>
     <?php include 'component/navbar.php'; ?>
     <main class="container-fluid">
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <input type="text" name="firstname" placeholder="Prénom" aria-label="Prénom">
             <input type="text" name="lastname" placeholder="Nom" aria-label="Nom">
             <input type="email" name="email" placeholder="email">
             <input type="password" name="password" placeholder="mot de passe">
             <input type="password" name="confirm-password" placeholder="confirmer le mot de passe">
+            <input type="file" name="image">
             <input type="submit" value="Inscription" name="submit">
         </form>
         <?php if(isset($data["msg"])) : ?>

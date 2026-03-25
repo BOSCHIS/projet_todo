@@ -5,14 +5,18 @@ namespace App\Service;
 use App\Entity\Account;
 use App\Repository\AccountRepository;
 use App\Utils\Tools;
+use App\Service\Exception\UploadException;
+use App\Service\UploadService;
 
 class SecurityService
 {
     private AccountRepository $accountRepository;
+    private UploadService $uploadService;
 
     public function __construct()
     {
         $this->accountRepository = new AccountRepository();
+        $this->uploadService = new UploadService();
     }
 
     public function register(array $account): string 
@@ -55,7 +59,15 @@ class SecurityService
         //7 hasher le password
         $user->hashPassword();
 
-        //8 ajouter le compte
+        //8 Importer une image (Optionnel)
+        if (isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
+            try {
+                $image = $this->uploadService->uploadFile($_FILES["image"]);
+                $user->setImage($image);
+            } catch(UploadException $e) {}
+        }
+
+        //9 ajouter le compte
         if ($this->accountRepository->addAccount($user)->getId() == null) {
             return "Enregistrement impossible";
         };

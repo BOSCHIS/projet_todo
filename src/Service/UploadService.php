@@ -57,7 +57,6 @@ class UploadService
             throw new UploadException("Le format " . $ext . " est invalide");
         }
         
-
         //rename files
         $newName =  $this->renameFile($ext);
         $uploadTmp = $files["tmp_name"];
@@ -115,6 +114,6 @@ class UploadService
      */
     private function renameFile(string $ext): string
     {
-        return uniqid() . "." . $ext;
+        return uniqid("image_") . "." . $ext;
     }
 }

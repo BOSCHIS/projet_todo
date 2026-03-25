@@ -1,6 +1,6 @@
 <?php
-
 include '../vendor/autoload.php';
+
 //démarrage de la session
 session_start();
 
